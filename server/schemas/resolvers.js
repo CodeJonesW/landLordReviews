@@ -28,6 +28,15 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
+    findReviewsByLandLordId: async (parent, args, context) => {
+      if (context.user) {
+        const landLordReviewsData = await Review.find({
+          landLordId: "60c0f174c685e2cca76076ff",
+        });
+        return landLordReviewsData;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
   },
 
   Mutation: {
