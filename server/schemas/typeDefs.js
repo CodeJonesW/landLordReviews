@@ -17,6 +17,7 @@ const typeDefs = gql`
   type Review {
     description: String!
     landLordId: ID!
+    rating: Int
   }
 
   type Auth {
@@ -40,7 +41,7 @@ const typeDefs = gql`
       lastName: String!
       addresses: [String]
     ): LandLord
-    saveReview(description: String!, landLordId: ID!): Review
+    saveReview(description: String!, landLordId: ID!, rating: Int!): Review
   }
 `;
 

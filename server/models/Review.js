@@ -10,6 +10,12 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
+  rating: {
+    type: Number,
+    min: [1, "Rating must be between 1 and 10"],
+    max: [10, "Rating must be between 1 and 10"],
+    required: false,
+  },
   userId: {
     type: String,
     required: false,

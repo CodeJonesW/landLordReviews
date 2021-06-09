@@ -90,10 +90,18 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-    saveReview: async (parent, { description, landLordId }, context) => {
+    saveReview: async (
+      parent,
+      { description, landLordId, rating },
+      context
+    ) => {
       if (context.user) {
         console.log(landLordId);
-        const newReview = await Review.create({ description, landLordId });
+        const newReview = await Review.create({
+          description,
+          landLordId,
+          rating,
+        });
         console.log(newReview);
         return newReview;
       }
