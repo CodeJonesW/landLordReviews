@@ -36,8 +36,9 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     findLandLordByAddress: async (parent, { address }, context) => {
+      const cleanAddress = address.toLowerCase().trim();
       const landLordsData = await LandLord.find({
-        addresses: { $in: ["my address"] },
+        addresses: { $in: [cleanAddress] },
       });
       return landLordsData;
     },
@@ -82,11 +83,14 @@ const resolvers = {
     ) => {
       if (context.user) {
         // console.log(parent, "parent is undefined");
+        const cleanAddresses = addresses.map((address) => {
+          return address.toLowerCase().trim();
+        });
         const newLandLord = await LandLord.create({
           description,
           firstName,
           lastName,
-          addresses,
+          addresses: [...cleanAddresses],
         });
         console.log(newLandLord);
         return newLandLord;
