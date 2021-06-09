@@ -75,7 +75,7 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
-        console.log(parent, "parent is undefined");
+        // console.log(parent, "parent is undefined");
         const newLandLord = await LandLord.create({
           description,
           firstName,
