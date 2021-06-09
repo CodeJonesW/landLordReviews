@@ -55,13 +55,13 @@ const resolvers = {
     },
     saveLandLord: async (
       parent,
-      { description, firstName, lastName },
+      { description, firstName, lastName, addresses },
       context
     ) => {
       if (context.user) {
         console.log(parent, "parent is undefined");
         const newLandLord = await LandLord.create(
-          { description, firstName, lastName },
+          { description, firstName, lastName, addresses },
           function (err, small) {
             if (err) return handleError(err);
             // saved!

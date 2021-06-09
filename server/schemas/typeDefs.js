@@ -31,6 +31,7 @@ const typeDefs = gql`
       description: String
       firstName: String!
       lastName: String!
+      addresses: [String]
     ): User
   }
 `;
