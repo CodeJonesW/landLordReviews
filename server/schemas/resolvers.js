@@ -2,7 +2,7 @@ const {
   AuthenticationError,
   attachConnectorsToContext,
 } = require("apollo-server-express");
-const { User, LandLord } = require("../models");
+const { User, LandLord, Review } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -60,14 +60,23 @@ const resolvers = {
     ) => {
       if (context.user) {
         console.log(parent, "parent is undefined");
-        const newLandLord = await LandLord.create(
-          { description, firstName, lastName, addresses },
-          function (err, small) {
-            if (err) return handleError(err);
-            // saved!
-          }
-        );
+        const newLandLord = await LandLord.create({
+          description,
+          firstName,
+          lastName,
+          addresses,
+        });
+        console.log(newLandLord);
         return newLandLord;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    saveReview: async (parent, { description }, context) => {
+      if (context.user) {
+        const newReview = await Review.create({ description });
+        console.log(newReview);
+        return newReview;
       }
 
       throw new AuthenticationError("You need to be logged in!");

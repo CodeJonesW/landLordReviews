@@ -14,6 +14,10 @@ const typeDefs = gql`
     addresses: [String]
   }
 
+  type Review {
+    description: String!
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -32,7 +36,8 @@ const typeDefs = gql`
       firstName: String!
       lastName: String!
       addresses: [String]
-    ): User
+    ): LandLord
+    saveReview(description: String!): Review
   }
 `;
 
