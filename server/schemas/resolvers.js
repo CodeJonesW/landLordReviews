@@ -18,14 +18,13 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    findLandLord: async (parent, args, context) => {
+    findLandLords: async (parent, args, context) => {
       if (context.user) {
-        const landLordData = await LandLord.findOne({
+        const landLordsData = await LandLord.find({
           firstName: "bill",
           lastName: "sally",
         });
-        console.log(landLordData);
-        return landLordData;
+        return landLordsData;
       }
       throw new AuthenticationError("Not logged in");
     },
