@@ -72,9 +72,10 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-    saveReview: async (parent, { description }, context) => {
+    saveReview: async (parent, { description, landLordId }, context) => {
       if (context.user) {
-        const newReview = await Review.create({ description });
+        console.log(landLordId);
+        const newReview = await Review.create({ description, landLordId });
         console.log(newReview);
         return newReview;
       }

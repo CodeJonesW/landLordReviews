@@ -6,12 +6,13 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
+  landLordId: {
+    type: String,
+    required: true,
+  },
   userId: {
     type: String,
     required: false,
-  },
-  image: {
-    type: String,
   },
 });
 
