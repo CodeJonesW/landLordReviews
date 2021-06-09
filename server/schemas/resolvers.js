@@ -19,14 +19,12 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     findLandLordsByName: async (parent, { firstName, lastName }, context) => {
-      if (context.user) {
-        const landLordsData = await LandLord.find({
-          firstName: firstName.toLowerCase(),
-          lastName: lastName.toLowerCase(),
-        });
-        return landLordsData;
-      }
-      throw new AuthenticationError("Not logged in");
+      // this is a public route so we are not checking auth via context.user.
+      const landLordsData = await LandLord.find({
+        firstName: firstName.toLowerCase(),
+        lastName: lastName.toLowerCase(),
+      });
+      return landLordsData;
     },
     findLandLordById: async (parent, { landLordId }, context) => {
       if (context.user) {
