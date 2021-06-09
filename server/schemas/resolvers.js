@@ -18,11 +18,11 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    findLandLords: async (parent, args, context) => {
+    findLandLordsByName: async (parent, { firstName, lastName }, context) => {
       if (context.user) {
         const landLordsData = await LandLord.find({
-          firstName: "bill",
-          lastName: "sally",
+          firstName: firstName.toLowerCase(),
+          lastName: lastName.toLowerCase(),
         });
         return landLordsData;
       }

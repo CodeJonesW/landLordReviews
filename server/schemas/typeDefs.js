@@ -26,7 +26,7 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    findLandLords: [LandLord]
+    findLandLordsByName(firstName: String!, lastName: String!): [LandLord]
     findLandLordById(landLordId: ID!): LandLord
     findReviewsByLandLordId(landLordId: ID!): [Review]
   }
