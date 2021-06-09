@@ -35,6 +35,12 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
+    findLandLordByAddress: async (parent, { address }, context) => {
+      const landLordsData = await LandLord.find({
+        addresses: { $in: ["my address"] },
+      });
+      return landLordsData;
+    },
     findReviewsByLandLordId: async (parent, { landLordId }, context) => {
       if (context.user) {
         const landLordReviewsData = await Review.find({
