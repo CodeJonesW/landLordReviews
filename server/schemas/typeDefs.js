@@ -7,10 +7,11 @@ const typeDefs = gql`
     email: String
   }
   type LandLord {
-    landLordId: ID!
+    _id: ID!
     description: String
     firstName: String!
     lastName: String!
+    addresses: [String]
   }
 
   type Auth {
@@ -20,6 +21,7 @@ const typeDefs = gql`
 
   type Query {
     me: User
+    findLandLord: LandLord
   }
 
   type Mutation {

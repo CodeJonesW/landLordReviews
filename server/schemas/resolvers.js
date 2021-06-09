@@ -1,4 +1,7 @@
-const { AuthenticationError } = require("apollo-server-express");
+const {
+  AuthenticationError,
+  attachConnectorsToContext,
+} = require("apollo-server-express");
 const { User, LandLord } = require("../models");
 const { signToken } = require("../utils/auth");
 
@@ -13,6 +16,17 @@ const resolvers = {
         return userData;
       }
 
+      throw new AuthenticationError("Not logged in");
+    },
+    findLandLord: async (parent, args, context) => {
+      if (context.user) {
+        const landLordData = await LandLord.findOne({
+          firstName: "bill",
+          lastName: "sally",
+        });
+        console.log(landLordData);
+        return landLordData;
+      }
       throw new AuthenticationError("Not logged in");
     },
   },
@@ -46,7 +60,7 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
-        console.log(description, firstName, lastName);
+        console.log(parent, "parent is undefined");
         const newLandLord = await LandLord.create(
           { description, firstName, lastName },
           function (err, small) {
