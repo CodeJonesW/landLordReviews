@@ -21,19 +21,11 @@ const resolvers = {
     findLandLordsByName: async (parent, { firstName, lastName }, context) => {
       // this is a public route so we are not checking auth via context.user.
       const landLordsData = await LandLord.find({
-        firstName: firstName.toLowerCase(),
-        lastName: lastName.toLowerCase(),
+        firstName: cleanInput(firstName),
+        lastName: cleanInput(lastName),
       });
+      // console.log(landLordsData);
       return landLordsData;
-    },
-    findLandLordById: async (parent, { landLordId }, context) => {
-      if (context.user) {
-        const landLordReviewsData = await LandLord.findOne({
-          _id: landLordId,
-        });
-        return landLordReviewsData;
-      }
-      throw new AuthenticationError("Not logged in");
     },
     findLandLordByAddress: async (parent, { address }, context) => {
       const cleanAddress = address.toLowerCase().trim();
@@ -42,14 +34,20 @@ const resolvers = {
       });
       return landLordsData;
     },
-    findReviewsByLandLordId: async (parent, { landLordId }, context) => {
-      if (context.user) {
-        const landLordReviewsData = await Review.find({
-          landLordId: landLordId,
-        });
-        return landLordReviewsData;
-      }
-      throw new AuthenticationError("Not logged in");
+    findReviewsByLandLordName: async (
+      parent,
+      { firstName, lastName },
+      context
+    ) => {
+      const landLordsData = await LandLord.find({
+        firstName: cleanInput(firstName),
+        lastName: cleanInput(lastName),
+      });
+
+      const landLordReviewsData = await Review.find({
+        landLordId: landLordsData._id,
+      });
+      return landLordReviewsData;
     },
     findReviewsByAddress: async (parent, { address }, context) => {
       const cleanAddress = address.toLowerCase().trim();
@@ -88,18 +86,15 @@ const resolvers = {
     },
     saveLandLord: async (
       parent,
-      { description, firstName, lastName, addresses },
+      { firstName, lastName, addresses },
       context
     ) => {
       if (context.user) {
         // console.log(parent, "parent is undefined");
-        const cleanAddresses = addresses.map((address) => {
-          return address.toLowerCase().trim();
-        });
+        const cleanAddresses = addresses.map((address) => cleanInput(address));
         const newLandLord = await LandLord.create({
-          description,
-          firstName,
-          lastName,
+          firstName: cleanInput(firstName),
+          lastName: cleanInput(lastName),
           addresses: [...cleanAddresses],
         });
         // console.log(newLandLord);
@@ -110,14 +105,13 @@ const resolvers = {
     },
     saveReview: async (
       parent,
-      { description, landLordId, rating, address },
+      { description, landLordName, rating, address },
       context
     ) => {
       if (context.user) {
-        console.log(landLordId);
         const newReview = await Review.create({
           description,
-          landLordId,
+          landLordName: cleanInput(landLordName),
           rating,
           address,
         });
@@ -129,5 +123,9 @@ const resolvers = {
     },
   },
 };
+
+function cleanInput(string) {
+  return string.toLowerCase().trim();
+}
 
 module.exports = resolvers;

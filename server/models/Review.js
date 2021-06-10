@@ -5,7 +5,7 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
-  landLordId: {
+  landLordName: {
     type: String,
     required: false,
   },
@@ -22,6 +22,10 @@ const reviewSchema = new Schema({
   address: {
     type: String,
     required: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
   },
 });
 

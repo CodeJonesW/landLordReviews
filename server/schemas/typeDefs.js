@@ -8,7 +8,6 @@ const typeDefs = gql`
   }
   type LandLord {
     _id: ID!
-    description: String
     firstName: String!
     lastName: String!
     addresses: [String]
@@ -29,7 +28,7 @@ const typeDefs = gql`
   type Query {
     me: User
     findLandLordsByName(firstName: String!, lastName: String!): [LandLord]
-    findLandLordById(landLordId: ID!): LandLord
+    findReviewsByLandLordName(firstName: String!, lastName: String!): LandLord
     findReviewsByLandLordId(landLordId: ID!): [Review]
     findReviewsByAddress(address: String!): [Review]
     findLandLordByAddress(address: String!): [LandLord]
@@ -47,7 +46,7 @@ const typeDefs = gql`
     saveReview(
       description: String!
       address: String
-      landLordId: ID
+      landLordName: String
       rating: Int!
     ): Review
   }
