@@ -1,4 +1,4 @@
-const LandLord = require("./Landlord");
+const LandLord = require("./LandLord");
 const User = require("./User");
 const Review = require("./Review");
 
