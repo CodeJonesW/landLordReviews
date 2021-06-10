@@ -51,6 +51,16 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
+    findReviewsByAddress: async (parent, { address }, context) => {
+      const cleanAddress = address.toLowerCase().trim();
+      // if (context.user) {
+      const reviewsData = await Review.find({
+        address: cleanAddress,
+      });
+      return reviewsData;
+      // }
+      // throw new AuthenticationError("Not logged in");
+    },
   },
 
   Mutation: {
@@ -92,7 +102,7 @@ const resolvers = {
           lastName,
           addresses: [...cleanAddresses],
         });
-        console.log(newLandLord);
+        // console.log(newLandLord);
         return newLandLord;
       }
 
@@ -100,7 +110,7 @@ const resolvers = {
     },
     saveReview: async (
       parent,
-      { description, landLordId, rating },
+      { description, landLordId, rating, address },
       context
     ) => {
       if (context.user) {
@@ -109,8 +119,9 @@ const resolvers = {
           description,
           landLordId,
           rating,
+          address,
         });
-        console.log(newReview);
+        // console.log(newReview);
         return newReview;
       }
 
