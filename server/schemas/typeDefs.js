@@ -32,6 +32,10 @@ const typeDefs = gql`
     findReviewsByLandLordId(landLordId: ID!): [Review]
     findReviewsByAddress(address: String!): [Review]
     findLandLordByAddress(address: String!): [LandLord]
+    findReviewsByLandLordFullName(
+      firstName: String!
+      lastName: String!
+    ): [Review]
   }
 
   type Mutation {

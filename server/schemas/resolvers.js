@@ -49,6 +49,23 @@ const resolvers = {
       });
       return landLordReviewsData;
     },
+    findReviewsByLandLordFullName: async (
+      parent,
+      { firstName, lastName },
+      context
+    ) => {
+      if (context.user) {
+        const landLordReviewsData = await LandLord.find({
+          firstName,
+          lastName,
+        });
+        const reviewsData = await Review.find({
+          landLordId: landLordReviewsData._id,
+        });
+        return reviewsData;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
     findReviewsByAddress: async (parent, { address }, context) => {
       const cleanAddress = address.toLowerCase().trim();
       // if (context.user) {
