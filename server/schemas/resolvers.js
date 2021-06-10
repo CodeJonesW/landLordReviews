@@ -19,7 +19,7 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     findLandLordsByName: async (parent, { firstName, lastName }, context) => {
-      // this is a public route so we are not checking auth via context.user.
+      // this is a public route
       const landLordsData = await LandLord.find({
         firstName: cleanInput(firstName),
         lastName: cleanInput(lastName),
@@ -28,6 +28,7 @@ const resolvers = {
       return landLordsData;
     },
     findLandLordByAddress: async (parent, { address }, context) => {
+      // this is a public route
       const cleanAddress = address.toLowerCase().trim();
       const landLordsData = await LandLord.find({
         addresses: { $in: [cleanAddress] },
@@ -39,6 +40,7 @@ const resolvers = {
       { firstName, lastName },
       context
     ) => {
+      // this is a public route
       const landLordsData = await LandLord.find({
         firstName: cleanInput(firstName),
         lastName: cleanInput(lastName),
@@ -55,6 +57,7 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
+        // this is a public route
         const landLordReviewsData = await LandLord.find({
           firstName,
           lastName,
@@ -67,6 +70,7 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     findReviewsByAddress: async (parent, { address }, context) => {
+      // this is a public route
       const cleanAddress = address.toLowerCase().trim();
       // if (context.user) {
       const reviewsData = await Review.find({
