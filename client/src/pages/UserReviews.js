@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { QUERY_ME } from "../utils/queries";
+import { QUERY_ME, QUERY_REVIEWS_BY_USER } from "../utils/queries";
 
 const UserReviews = () => {
   const { loading, data } = useQuery(QUERY_ME);

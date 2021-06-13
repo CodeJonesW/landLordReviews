@@ -10,7 +10,7 @@ export const QUERY_ME = gql`
   }
 `;
 
-export const FindReviewsByUser = gql`
+export const QUERY_REVIEWS_BY_USER = gql`
   query findReviewsByUser($userId: String!) {
     findUserReviews(userId: $userId) {
       description
