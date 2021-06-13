@@ -18,6 +18,7 @@ const typeDefs = gql`
     landLordId: ID
     rating: Int
     address: String
+    userId: String
   }
 
   type Auth {
@@ -31,6 +32,7 @@ const typeDefs = gql`
     findReviewsByLandLordName(firstName: String!, lastName: String!): LandLord
     findReviewsByLandLordId(landLordId: ID!): [Review]
     findReviewsByAddress(address: String!): [Review]
+    findReviewsByUser(userId: String!): [Review]
     findLandLordByAddress(address: String!): [LandLord]
     findReviewsByLandLordFullName(
       firstName: String!
@@ -52,6 +54,7 @@ const typeDefs = gql`
       address: String
       landLordName: String
       rating: Int!
+      userId: String!
     ): Review
   }
 `;

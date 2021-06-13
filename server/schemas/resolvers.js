@@ -80,6 +80,16 @@ const resolvers = {
       // }
       // throw new AuthenticationError("Not logged in");
     },
+    findReviewsByUser: async (parent, { userId }, context) => {
+      // this is a public route
+      // if (context.user) {
+      const reviewsData = await Review.find({
+        userId: userId,
+      });
+      return reviewsData;
+      // }
+      // throw new AuthenticationError("Not logged in");
+    },
   },
 
   Mutation: {
@@ -126,7 +136,7 @@ const resolvers = {
     },
     saveReview: async (
       parent,
-      { description, landLordName, rating, address },
+      { description, landLordName, rating, address, userId },
       context
     ) => {
       if (context.user) {
@@ -135,6 +145,7 @@ const resolvers = {
           landLordName: cleanInput(landLordName),
           rating,
           address,
+          userId,
         });
         // console.log(newReview);
         return newReview;

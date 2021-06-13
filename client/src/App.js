@@ -5,6 +5,7 @@ import ApolloClient from "apollo-boost";
 
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import UserReviews from "./pages/UserReviews.js";
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -27,6 +28,7 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/saved" component={UserReviews} />
             <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
           </Switch>
         </>

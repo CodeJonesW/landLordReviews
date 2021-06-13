@@ -9,3 +9,13 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const FindReviewsByUser = gql`
+  query findReviewsByUser($userId: String!) {
+    findUserReviews(userId: $userId) {
+      description
+      address
+      landLordId
+    }
+  }
+`;
