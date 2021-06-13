@@ -81,14 +81,14 @@ const resolvers = {
       // throw new AuthenticationError("Not logged in");
     },
     findReviewsByUser: async (parent, { userId }, context) => {
-      // this is a public route
-      // if (context.user) {
-      const reviewsData = await Review.find({
-        userId: userId,
-      });
-      return reviewsData;
-      // }
-      // throw new AuthenticationError("Not logged in");
+      if (context.user) {
+        const reviewsData = await Review.find({
+          userId: userId,
+        });
+        console.log(reviewsData);
+        return reviewsData;
+      }
+      throw new AuthenticationError("Not logged in");
     },
   },
 

@@ -11,8 +11,8 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_REVIEWS_BY_USER = gql`
-  query findReviewsByUser($userId: String!) {
-    findUserReviews(userId: $userId) {
+  {
+    findReviewsByUser(userId: "60c00da5a9fc9fb4e443de19") {
       description
       address
       landLordId
